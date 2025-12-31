@@ -31,8 +31,7 @@
 6.	安装Nginx：yum install -y nginx（CentOS）/ apt install -y nginx（Ubuntu）
 7.	安装PHP及扩展：yum install -y php php-fpm php-mysqli php-common
 8.	安装MariaDB：yum install -y mariadb mariadb-server
-9.	启动并设置开机自启：
-        # 启动服务
+9.	启动并设置开机自启：# 启动服务
 systemctl start nginx php-fpm mariadb
 # 开机自启
 systemctl enable nginx php-fpm mariadb
@@ -41,12 +40,9 @@ systemctl enable nginx php-fpm mariadb
 11.	启用Nginx/Apache、PHP 7.4+、MariaDB/MySQL服务
 12.	验证环境：访问集成环境默认首页，确认PHP、数据库连接正常
 ### 步骤2：项目源码部署
-13.	下载/复制项目所有源码，放置到Web服务器根目录：
-        
-￮	Linux（Nginx）：/usr/share/nginx/html/
-￮	Windows（PHPStudy）：WWW/电商系统/
-14.	确认项目目录结构完整（如下），缺失目录手动创建：
-        电商系统/
+13.	
+14.	下载/复制项目所有源码，放置到Web服务器根目录：
+15.	确认项目目录结构完整（如下），缺失目录手动创建：电商系统/
 ├── sql/                # 数据库初始化脚本
 ├── conn/               # 数据库连接配置
 ├── public/             # 公共资源（CSS、图片）
@@ -57,36 +53,29 @@ systemctl enable nginx php-fpm mariadb
 ├── cart/               # 购物车模块
 ├── order/              # 订单模块
 └── admin/              # 后台管理模块
-15.	配置目录权限（Linux环境）：
-        # 赋予公共图片目录读写权限
+16.	配置目录权限（Linux环境）：# 赋予公共图片目录读写权限
 chmod -R 775 /usr/share/nginx/html/public/images/
 # 赋予项目目录所属用户为nginx
 chown -R nginx:nginx /usr/share/nginx/html/
 ### 步骤3：数据库初始化
-16.	登录MariaDB/MySQL（使用root用户）：
-        mysql -u root -p
-17.	创建电商数据库（utf8mb4字符集，保证中文无乱码）：
-        CREATE DATABASE ecommerce_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-18.	导入数据库初始化脚本（修正版，无索引冲突）：
-        # 退出数据库，执行导入命令（Linux环境）
+17.	登录MariaDB/MySQL（使用root用户）：mysql -u root -p
+18.	创建电商数据库（utf8mb4字符集，保证中文无乱码）：CREATE DATABASE ecommerce_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+19.	
+20.	导入数据库初始化脚本（修正版，无索引冲突）：# 退出数据库，执行导入命令（Linux环境）
 mysql -u root -p ecommerce_db < /usr/share/nginx/html/sql/ecommerce_init.sql
-￮	Windows环境：通过PHPStudy/phpMyAdmin导入sql/ecommerce_init.sql文件
-19.	验证导入结果：登录数据库，确认ecommerce_db下包含user、goods、admin等6张表，且admin表存在默认管理员数据。
+21.	验证导入结果：登录数据库，确认ecommerce_db下包含user、goods、admin等6张表，且admin表存在默认管理员数据。
 ### 步骤4：核心配置修改
-20.	编辑数据库连接配置文件 conn/db_conn.php：
-        // 修改为你的数据库实际配置（重点修改密码）
+22.	编辑数据库连接配置文件 conn/db_conn.php：// 修改为你的数据库实际配置（重点修改密码）
 $db_host = 'localhost';
 $db_user = 'root';          // 测试环境可用root，正式环境建议创建专用用户
 $db_pass = '【你的数据库root密码】';  // 填写你重置/设置的数据库密码
 $db_name = 'ecommerce_db';
-21.	保存配置文件，确保无语法错误（PHP语法错误会导致页面500报错）。
+23.	保存配置文件，确保无语法错误（PHP语法错误会导致页面500报错）。
 ### 步骤5：项目访问与验证
-22.	访问前台首页：http://你的服务器IP/goods/index.php（或http://localhost/goods/index.php（本地环境））
-23.	访问后台登录页：http://你的服务器IP/admin/login.php
-24.	验证核心功能：
-       
-￮	后台：使用默认账号admin、密码admin123456登录，尝试添加/删除商品
-￮	前台：用户注册→登录→浏览商品→加入购物车→创建订单→查看个人中心订单
+24.	访问前台首页：http://你的服务器IP/goods/index.php（或http://localhost/goods/index.php（本地环境））
+25.	访问后台登录页：http://你的服务器IP/admin/login.php
+26.	
+27.	验证核心功能：
 ## 常见问题汇总
 问题现象	核心原因	解决方案
 ERROR 1061 (42000): Duplicate key name 'order_sn'	订单表order_sn字段UNIQUE约束与手动索引重复	导入修正版sql/ecommerce_init.sql脚本，删除重复索引
@@ -96,18 +85,11 @@ Access denied for user 'ecommerce_user'@'localhost'	ecommerce_user用户不存�
 商品图片无法显示	默认图片缺失/目录权限不足	1. 在public/images/下创建default.jpg；2. 赋予目录775权限
 页面500报错	PHP语法错误/扩展未开启/目录权限不足	1. 查看PHP错误日志；2. 开启mysqli扩展；3. 检查项目目录权限
 ## 注意事项
-25.	安全提示：
-       
-￮	该项目为学习/实验用途，正式环境部署需优化安全配置（关闭PHP错误提示、限制文件上传大小、使用HTTPS、创建低权限数据库用户）
-￮	密码仅采用MD5加密（入门级），正式环境建议使用password_hash()/password_verify()进行密码加密验证
-￮	预处理语句已防SQL注入，请勿随意修改查询逻辑为直接拼接SQL
-26.	功能留白补充：
-        
-￮	商品图片上传功能暂未完善，可在admin/goods_manage.php中补充文件上传逻辑
-￮	订单支付功能为模拟提示，正式环境可对接支付宝/微信支付接口
-￮	可扩展功能：用户密码找回、商品分类、订单状态更新、后台分页查询
-27.	数据备份：定期备份ecommerce_db数据库，避免数据丢失：
-        # 数据库备份命令（Linux）
+28.	
+29.	安全提示：
+30.	
+31.	功能留白补充：
+32.	数据备份：定期备份ecommerce_db数据库，避免数据丢失：# 数据库备份命令（Linux）
 mysqldump -u root -p ecommerce_db > ecommerce_db_backup_$(date +%Y%m%d).sql
 ## 项目目录结构详解（补充）
 bash
@@ -139,7 +121,7 @@ bash
 ## 总结
 该项目实现了电商系统的核心闭环流程，代码简洁易懂，无复杂框架依赖，适合PHP入门学习者理解动态网站的数据交互流程和业务逻辑设计。通过部署和调试该项目，可快速掌握LNMP环境搭建、PHP与数据库协同开发、常见Web项目问题排查等核心技能。
 ### 后续扩展方向
-28.	前端优化：引入Bootstrap/Vue.js提升页面美观度和交互性
-29.	后端优化：引入PHP框架（如ThinkPHP、Laravel）简化开发流程
-30.	功能扩展：添加商品评论、收藏、物流查询、后台用户管理等功能
-31.	部署优化：使用Docker容器化部署，简化环境搭建流程
+33.	前端优化：引入Bootstrap/Vue.js提升页面美观度和交互性
+34.	后端优化：引入PHP框架（如ThinkPHP、Laravel）简化开发流程
+35.	功能扩展：添加商品评论、收藏、物流查询、后台用户管理等功能
+36.	部署优化：使用Docker容器化部署，简化环境搭建流程
