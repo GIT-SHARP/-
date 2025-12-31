@@ -1,0 +1,206 @@
+/* 电商系统统一样式表 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", sans-serif;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.header {
+    background: #4285F4;
+    color: #fff;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+    .header .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+        .header .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        .header .nav .user-info {
+            color: #f0f9ff;
+            font-size: 14px;
+        }
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #4285F4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-danger {
+    background: #f5222d;
+}
+
+.btn-success {
+    background: #52c41a;
+}
+
+.form-box {
+    width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.form-item {
+    margin: 15px 0;
+}
+
+    .form-item label {
+        display: inline-block;
+        width: 100px;
+        font-size: 14px;
+    }
+
+    .form-item input {
+        width: 250px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .form-item textarea {
+        width: 250px;
+        height: 100px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        resize: none;
+    }
+
+.msg {
+    text-align: center;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.msg-error {
+    background: #fef0f0;
+    color: #f5222d;
+}
+
+.msg-success {
+    background: #f0f9ff;
+    color: #52c41a;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+    .table th, .table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .table th {
+        background: #f0f9ff;
+        font-weight: bold;
+    }
+
+.goods-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.goods-item {
+    width: 280px;
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.03);
+}
+
+    .goods-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border-radius: 4px;
+    }
+
+    .goods-item .goods-name {
+        font-size: 16px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .goods-item .goods-price {
+        color: #f5222d;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .goods-item .goods-stock {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+.detail-container {
+    width: 800px;
+    margin: 50px auto;
+}
+
+    .detail-container img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+
+    .detail-container .goods-price {
+        font-size: 24px;
+        color: #f5222d;
+        margin: 20px 0;
+    }
+
+    .detail-container .goods-stock {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .detail-container .goods-desc {
+        line-height: 1.8;
+        color: #333;
+        margin: 20px 0;
+    }
